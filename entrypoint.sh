@@ -1,4 +1,3 @@
 #!/bin/bash
 
-HOME="`pwd`"
-$HOME/minio server --config-dir=$HOME/config $@ $HOME/data
+${MINIO_BIN} server --config-dir=${MINIO_CONFIG_DIR} $@ ${MINIO_DATA_DIR}
