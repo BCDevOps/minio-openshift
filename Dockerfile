@@ -16,9 +16,13 @@ USER minio
 
 ENV MINIO_ACCESS_KEY="demoaccesskey"
 ENV MINIO_SECRET_KEY="mysecret"
+ENV MINIO_BIN=/opt/minio/minio
+ENV MINIO_DATA_DIR=/opt/minio/data
+ENV MINIO_CONFIG_DIR=/opt/minio/config
 
-VOLUME /opt/minio/config
-VOLUME /opt/minio/data
+
+VOLUME $MINIO_CONFIG_DIR
+VOLUME $MINIO_DATA_DIR
 
 EXPOSE 9000
 
