@@ -1,4 +1,4 @@
-FROM centos
+FROM registry.access.redhat.com/rhel7/rhel
 
 RUN useradd -d /opt/minio -g root minio
 
