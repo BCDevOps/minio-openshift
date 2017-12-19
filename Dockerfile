@@ -11,8 +11,8 @@ RUN curl -o minio https://dl.minio.io/server/minio/release/linux-amd64/minio && 
     mkdir config && \
     mkdir data  && \
     mkdir gwells && \
-    mkdir gwells\config && \
-    mkdir gwells\data && \    
+    mkdir gwells/config && \
+    mkdir gwells/data && \    
     chown minio:root -R . && chmod 777 -R .
 
 USER minio
