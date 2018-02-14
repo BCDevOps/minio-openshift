@@ -22,12 +22,11 @@ Secret key acting as the password to the account.  Set as part of deployment but
 
 ## Security
 
-Authentication, Authorization, Policies, etc
+S3 clients will access the Minio server using the Access and Secret Keys.
 
 ## Files in this repository
 
-The only file is a text document, containing all the commands a user could call on the command line to assemble the image.  This Dockerfile supports 
-automated build that executes several command-line instructions in succession. 
+The only file is a text document, containing all the commands a user could call on the command line to assemble the image.  This Dockerfile supports automated build that executes several command-line instructions in succession. 
 ```
 Dockerfile           
 ```
@@ -35,7 +34,6 @@ Dockerfile
 ## Deployment (Local Development)
 
 No special local deployment instructions, other than setting the environment variables above.
-
 
 ## Deployment (OpenShift)
 
