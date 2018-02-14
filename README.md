@@ -5,14 +5,20 @@ This application is a forked version of Minio, an open source object storage ser
 Minio
 
 ## Third-Party Products/Libraries used and the the License they are covered by
-Minio, covered by Apache Licence Version 2.0
+Minio, covered by Apache Licence Version 2.0.
 
 ## Project Status
 Minio has been released, and used by multiple organizations on mutiple platforms.   This fork has been tested and runs on BC Gov OpenShift containers.
 
 ## Documentation
 
-GitHub Pages (https://guides.github.com/features/pages/) are a neat way to document you application/project.
+Special environment variables are used (note that environment variables are case sensitive)
+
+### MINIO_ACCESS_KEY 
+Access key acting as a user ID that uniquely identifies the account.  Set as part of deployment but then used in the deployed pod to connect to the internal (private) Minio Server.
+
+### MINIO_SECRET_KEY 
+Secret key acting as the password to the account.  Set as part of deployment but then used in the deployed pod to connect to the internal (private) Minio Server.
 
 ## Security
 
@@ -22,19 +28,18 @@ Authentication, Authorization, Policies, etc
 
 The only file is a text document, containing all the commands a user could call on the command line to assemble the image.  This Dockerfile supports 
 automated build that executes several command-line instructions in succession. 
-
 ```
 Dockerfile           
 ```
 
 ## Deployment (Local Development)
 
-* Developer Workstation Requirements/Setup
-* Application Specific Setup
+No special local deployment instructions, other than setting the environment variables above.
+
 
 ## Deployment (OpenShift)
 
-See (openshift/Readme.md)
+No special openshift deployment instructions.
 
 ## Getting Help or Reporting an Issue
 
