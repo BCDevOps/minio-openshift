@@ -41,7 +41,7 @@ No special openshift deployment instructions.
 
 ## Getting Help or Reporting an Issue
 
-To report bugs/issues/feature requests, please file an [issue](./issues).
+To report bugs/issues/feature requests, please file an [issue](issues).
 
 ## How to Contribute
 
