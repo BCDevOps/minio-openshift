@@ -7,7 +7,9 @@ WORKDIR /opt/minio
 ADD entrypoint.sh .
 
 RUN curl -o minio https://dl.minio.io/server/minio/release/linux-amd64/minio && \
+    curl -o https://dl.minio.io/client/mc/release/linux-amd64/mc && \
     chmod +x minio && \
+    chmod +x mc && \
     mkdir config && \
     mkdir data  && \
     mkdir s3 && \
