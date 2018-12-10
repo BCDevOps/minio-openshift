@@ -1,19 +1,42 @@
 {
-  "kind": "List",
+  "kind": "Template",
   "apiVersion": "v1",
   "metadata": {},
-  "items": [
+  "objects": [
+      {
+        "apiVersion": "v1",
+        "kind": "ImageStream",
+        "metadata": {
+            "creationTimestamp": null,
+            "labels": {
+                "shared": "true"
+            },
+            "name": "rhel7"
+        },
+        "spec": {
+            "lookupPolicy": {
+                "local": false
+            },
+            "tags": [
+                {
+                    "from": {
+                        "kind": "DockerImage",
+                        "name": "registry.access.redhat.com/rhel7/rhel:7.5-433"
+                    },
+                    "importPolicy": {},
+                    "name": "7.5-433"
+                }
+            ]
+        }
+    },
     {
       "kind": "ImageStream",
       "apiVersion": "v1",
       "metadata": {
-        "name": "minio",
+        "name": "${NAME}",
         "creationTimestamp": null,
         "labels": {
-          "build": "minio"
-        },
-        "annotations": {
-          "openshift.io/generated-by": "OpenShiftNewBuild"
+          "shared": "true"
         }
       },
       "spec": {
@@ -29,29 +52,11 @@
       "kind": "BuildConfig",
       "apiVersion": "v1",
       "metadata": {
-        "name": "minio",
-        "creationTimestamp": null,
-        "labels": {
-          "build": "minio"
-        },
-        "annotations": {
-          "openshift.io/generated-by": "OpenShiftNewBuild"
-        }
+        "name": "${NAME}${SUFFIX}",
+        "creationTimestamp": null
       },
       "spec": {
         "triggers": [
-          {
-            "type": "GitHub",
-            "github": {
-              "secret": "${GITHUB_WEBHOOK_SECRET}"
-            }
-          },
-          {
-            "type": "Generic",
-            "generic": {
-              "secret": "${GITHUB_WEBHOOK_SECRET}"
-            }
-          },
           {
             "type": "ConfigChange"
           },
@@ -63,22 +68,24 @@
         "source": {
           "type": "Git",
           "git": {
-            "uri": "https://github.com/bcdevops/minio-openshift"
-          }
+            "uri": "${GIT_REPO_URL}",
+            "ref": "${GIT_REF}"
+          },
+          "contextDir": "${SOURCE_CONTEXT_DIR}"
         },
         "strategy": {
           "type": "Docker",
           "dockerStrategy": {
             "from": {
               "kind": "ImageStreamTag",
-              "name": "rhel7:latest"
+              "name": "rhel7:7.5-433"
             }
           }
         },
         "output": {
           "to": {
             "kind": "ImageStreamTag",
-            "name": "minio:latest"
+            "name": "${NAME}:${OUTPUT_IMAGE_TAG}"
           }
         },
         "resources": {},
@@ -92,16 +99,43 @@
   ],
   "parameters": [
     {
-      "name": "GITHUB_WEBHOOK_SECRET",
-      "generate": "expression",
-      "from": "[a-zA-Z0-9]{16}",
-      "required": true
+      "name": "NAME",
+      "displayName": "Name",
+      "description": "The name assigned to all objects defined in this template.",
+      "required": true,
+      "value": "nginx-runtime"
     },
     {
-      "name": "GENERIC_WEBHOOK_SECRET",
-      "generate": "expression",
-      "from": "[a-zA-Z0-9]{16}",
-      "required": true
+      "name": "SUFFIX",
+      "value": "-dev"
+    },
+    {
+      "name": "GIT_REPO_URL",
+      "displayName": "Git Repo URL",
+      "description": "The URL to your GIT repo, don't use the this default unless your just experimenting.",
+      "required": true,
+      "value": "https://github.com/bcdevops/minio-openshift"
+    },
+    {
+      "name": "GIT_REF",
+      "displayName": "Git Reference",
+      "description": "The git reference or branch.",
+      "required": true,
+      "value": "master"
+    },
+    {
+      "name": "SOURCE_CONTEXT_DIR",
+      "displayName": "Source Context Directory",
+      "description": "The source context directory.",
+      "required": true,
+      "value": "docker"
+    },
+    {
+      "name": "OUTPUT_IMAGE_TAG",
+      "displayName": "Output Image Tag",
+      "description": "The tag given to the built image.",
+      "required": true,
+      "value": "latest"
     }
   ]
 }
