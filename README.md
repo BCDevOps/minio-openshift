@@ -72,10 +72,22 @@ oc tag --reference minio:stable minio:prod # use of reference here is so you *ha
 
 #### Deploy using OpenShift deployment template
 
-To deploy minio into a deployment project, use the template that exists in the global OpenShift catalog, as below, substituting one of the tags you created above as the value for the `IMAGESTREAM_TAG` parameter:
+To deploy `minio` into a deployment project, use the template from this repo, substituting one of the tags you created above as the value for the `IMAGESTREAM_TAG` parameter:
 
 ```bash
-oc process minio-deployment -p IMAGESTREAM_NAMESPACE=devex-mpf-secure-tools -p IMAGESTREAM_TAG=<dev|test|prod> | oc create -n <your deployment project> -f -
+oc process -f https://raw.githubusercontent.com/BCDevOps/minio-openshift/master/openshift/minio-deployment.json -p IMAGESTREAM_NAMESPACE=<your tools project> -p IMAGESTREAM_TAG=<dev|test|prod> | oc create -n <your deployment project> -f -
+```
+
+Additionally, you can use `oc new-app` to process a template stored in the catalogue:
+
+```bash
+oc -n <target-namespace> new-app --template=minio -p IMAGESTREAM_NAMESPACE=<your tools project> -p IMAGESTREAM_TAG=<dev|test|prod>
+```
+
+However, for simplicity, the `minio` image is available in the `bcgov` namespace:
+
+```bash
+oc process -f https://raw.githubusercontent.com/BCDevOps/minio-openshift/master/openshift/minio-deployment.json -p IMAGESTREAM_NAMESPACE=bcgov -p IMAGESTREAM_TAG=v1-latest | oc create -n <your deployment project> -f -
 ```
 
 Alternatively, you may use the "Add to Project" feature in the OpenShift web console to achieve the same thing as above by entering values in a web form.  
