@@ -22,6 +22,7 @@ USER minio
 ENV MINIO_ACCESS_KEY="demoaccesskey"
 ENV MINIO_SECRET_KEY="mysecret"
 ENV MINIO_BIN=/opt/minio/minio
+ENV MINIO_MODE="server"
 ENV MINIO_DATA_DIR=/opt/minio/s3/data
 ENV MINIO_CONFIG_DIR=/opt/minio/s3/config
 
