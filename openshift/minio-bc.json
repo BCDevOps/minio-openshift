@@ -1,7 +1,18 @@
 {
   "kind": "Template",
   "apiVersion": "v1",
-  "metadata": {},
+  "metadata": {
+    "name": "${NAME}",
+    "annotations": {
+      "description": "Minio with persistent storage build. By BC Gov.",
+      "iconClass": "icon-hdd",
+      "openshift.io/display-name": "BC Gov Minio",
+      "tags": "bcgov,pathfinder,minio,s3,objectstore",
+      "template.openshift.io/documentation-url": "https://github.com/BCDevOps/minio-openshift",
+      "template.openshift.io/long-description": "This template builds a minio server image within OpenShift, backed by persistent volume storage.",
+      "template.openshift.io/provider-display-name": "Province of BC, Office of the Chief Information Officer, BC DevExchange and DevOps Branch"
+    }
+  },
   "objects": [
       {
         "apiVersion": "v1",
@@ -53,7 +64,11 @@
       "apiVersion": "v1",
       "metadata": {
         "name": "${NAME}${SUFFIX}",
-        "creationTimestamp": null
+        "creationTimestamp": null,
+        "labels": {
+          "app": "${NAME}",
+          "buildconfig": "${NAME}"
+        }
       },
       "spec": {
         "triggers": [
@@ -103,11 +118,11 @@
       "displayName": "Name",
       "description": "The name assigned to all objects defined in this template.",
       "required": true,
-      "value": "nginx-runtime"
+      "value": "minio"
     },
     {
       "name": "SUFFIX",
-      "value": "-dev"
+      "value": "-build"
     },
     {
       "name": "GIT_REPO_URL",

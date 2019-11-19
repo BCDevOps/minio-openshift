@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-export OCP_PIPELINE_VERSION='0.0.6'
+export OCP_PIPELINE_VERSION='0.0.7'
 OCP_PIPELINE_CLI_URL="https://raw.githubusercontent.com/BCDevOps/ocp-cd-pipeline/v${OCP_PIPELINE_VERSION}/src/main/resources/pipeline-cli"
 
 
