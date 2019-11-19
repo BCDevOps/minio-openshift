@@ -106,10 +106,6 @@
                     "value": "server"
                   },
                   {
-                    "name": "MINIO_CONFIG_DIR",
-                    "value": "/tmp"
-                  },
-                  {
                     "name": "MINIO_DATA_DIR",
                     "value": "/data"
                   }
